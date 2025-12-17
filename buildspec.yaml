@@ -3,20 +3,16 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Nessuna installazione necessaria per sito statico"
+      - echo "Nessuna installazione necessaria"
   build:
     commands:
       - echo "Sincronizzazione file su S3..."
-      # Sostituisci NOME-TUO-BUCKET con il nome reale
       - aws s3 sync . s3://portfoliomio --delete --exclude ".git/*"
   post_build:
     commands:
-      - echo "Invalidazione cache CloudFront (opzionale)..."
-      # Sostituisci ID-DISTRIBUZIONE se usi CloudFront
-      - |
-        if [ ! -z "$CE230URYIR87ZLW" ]; then
-          aws cloudfront create-invalidation --distribution-id $CE230URYIR87ZLW --paths "/*";
-        fi
+      - echo "Invalidazione cache CloudFront in corso..."
+      # Sostituisci ID_DISTRIBUZIONE col tuo ID reale (es. E1ABC2DEF3GHI)
+      - aws cloudfront create-invalidation --distribution-id CE230URYIR87ZLW --paths "/*"
 
 artifacts:
   files:
