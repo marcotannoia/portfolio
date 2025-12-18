@@ -11,12 +11,8 @@ phases:
       - aws s3 sync . s3://portfoliomio --delete --exclude ".git/*"
   post_build:
     commands:
-      - echo "Invalidazione cache CloudFront (opzionale)..."
-      # Sostituisci ID-DISTRIBUZIONE se usi CloudFront
-      - |
-        if [ ! -z "$CE230URYIR87ZLW" ]; then
-          aws cloudfront create-invalidation --distribution-id $CE230URYIR87ZLW --paths "/*";
-        fi
+      - echo "Invalidazione cache CloudFront in corso..."
+      - aws cloudfront create-invalidation --distribution-id CE230URYIR87ZLW --paths "/*"
 
 artifacts:
   files:
